@@ -10,8 +10,10 @@ class BasePage:
         self.page.fill(locator,input)
         
     
-    def click(self,button):
-        self.page.click(button)
+    def click(self, locator):
+      if isinstance(locator, str):
+        locator = self.page.locator(locator)
+      locator.click()
     
 
   
