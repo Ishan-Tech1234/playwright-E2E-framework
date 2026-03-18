@@ -19,5 +19,6 @@ class LoginPage(BasePage):
         self.click(self.LOGIN_BUTTON)
         inventory_page=InventoryPage(self.page)
         return inventory_page
+        
 
    
