@@ -24,9 +24,9 @@ class InventoryPage(BasePage):
 
         
 
-    def verify_cart_badge(self):
-        expect(self.page.locator(self.CART_BADGE)).to_have_text("1")
-        self.page.screenshot(path="screenshots/fullpage.png", full_page=True)
+    def verify_cart_badge(self,cart_size):
+        expect(self.page.locator(self.CART_BADGE)).to_have_text(str(cart_size))
+        # self.page.screenshot(path="screenshots/cartsize.png", full_page=True)
 
     def open_cart(self):
         self.click(self.CART)
