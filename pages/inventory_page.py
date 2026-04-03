@@ -1,11 +1,11 @@
 from pages.base_page import BasePage
 from pages.cart_page import CartPage
+from components.product_component import ProductComponent
 
 from playwright.sync_api import expect
 
 class InventoryPage(BasePage):
     PRODUCT_TITLE='.title'
-    CART_BADGE="[data-test='shopping-cart-badge']"
     CART="[data-test='shopping-cart-link']"
 
 
@@ -15,19 +15,15 @@ class InventoryPage(BasePage):
     def verify_products_page(self):
         expect(self.page.locator(self.PRODUCT_TITLE)).to_have_text("Products")
 
-    def add_to_cart_product(self,product_name):
-        item=self.page.locator(".inventory_item")
-        parent=item.filter(has_text=product_name)
-        target=parent.locator("[data-test^='add-to-cart']")
-        self.click(target)
+    def get_product(self,product_name):
+        item=self.page.locator(".inventory_item",has_text=product_name)
+        product_component=ProductComponent(item)
+        return product_component
 
 
         
 
-    def verify_cart_badge(self,cart_size):
-        expect(self.page.locator(self.CART_BADGE)).to_have_text(str(cart_size))
-        # self.page.screenshot(path="screenshots/cartsize.png", full_page=True)
-
+    
     def open_cart(self):
         self.click(self.CART)
         cart_page=CartPage(self.page)
