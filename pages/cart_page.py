@@ -27,7 +27,7 @@ class CartPage(BasePage):
 
     def get_product(self,product_name):
         item=self.page.locator(".cart_item",has_text=product_name)
-        product_component=ProductComponent(item)
+        product_component=ProductComponent(self.page,item)
         return product_component
 
     

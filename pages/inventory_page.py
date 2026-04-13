@@ -16,8 +16,8 @@ class InventoryPage(BasePage):
         expect(self.page.locator(self.PRODUCT_TITLE)).to_have_text("Products")
 
     def get_product(self,product_name):
-        item=self.page.locator(".inventory_item",has_text=product_name)
-        product_component=ProductComponent(item)
+        container=self.page.locator(".inventory_item",has_text=product_name)
+        product_component=ProductComponent(self.page,container)
         return product_component
 
 
@@ -25,7 +25,7 @@ class InventoryPage(BasePage):
 
     
     def open_cart(self):
-        self.click(self.CART)
+        self.click(self.CART,"clicking cart option")
         cart_page=CartPage(self.page)
         return cart_page
 
