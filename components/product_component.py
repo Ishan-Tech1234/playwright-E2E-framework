@@ -1,4 +1,5 @@
 from pages.base_page import BasePage
+from playwright.sync_api import expect
 
 
 class ProductComponent(BasePage):
@@ -14,11 +15,17 @@ class ProductComponent(BasePage):
     def add_to_cart(self,product_name):
      button=self.container.locator("[data-test^='add-to-cart-']")
      self.click(button,f"adding {product_name} to cart")
+     remove_button=self.container.locator("[data-test^='remove-']")
+     expect(remove_button).to_be_enabled()
+     expect(remove_button).to_be_visible()
      
      
 
     def remove_from_cart(self,product_name):
       button=self.container.locator("[data-test^='remove-']")
       self.click(button,f"removing {product_name} from cart")
+      add_button = self.container.locator("[data-test^='add-to-cart-']")
+      
+
       
       
