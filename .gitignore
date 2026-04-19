@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 screenshots/
 playwright.log
+allure-results
+error_screenshots
+node_modules
+package-lock.json
+package.json

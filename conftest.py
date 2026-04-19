@@ -6,6 +6,8 @@ from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 import os
 import logging
+import allure
+import shutil
 
 
 
@@ -35,6 +37,12 @@ def login_user(page):
 def pytest_runtest_setup(item):
     logging.info(f"=== TEST {item.name} starting at {datetime.now()} ===")
 
+@pytest.hookimpl()
+def pytest_sessionstart(session):
+    shutil.rmtree("allure-results")
+    os.makedirs("allure-results",exist_ok=True)
+
+
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item,call):
@@ -48,9 +56,15 @@ def pytest_runtest_makereport(item,call):
         if page:
             os.makedirs("error_screenshots",exist_ok=True)
             timestamp=datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"screenshots/{item.name}_{timestamp}.png"
+            filename = f"error_screenshots/{item.name}_{timestamp}.png"
             try:
                 page.screenshot(path=filename)
+                with open(filename,'rb') as image_file:
+                    allure.attach(
+                        image_file.read(),
+                        name=f"error_screenshot - {item.name}",
+                        attachment_type=allure.attachment_type.PNG
+                    )
                 print(f"\n[Playwright] Screenshot saved to {filename}")
             except Exception as e:
                 print(f"\n[Playwright] Failed to take screenshot: {e}")
