@@ -39,7 +39,7 @@ def pytest_runtest_setup(item):
 
 @pytest.hookimpl()
 def pytest_sessionstart(session):
-    shutil.rmtree("allure-results")
+    shutil.rmtree("allure-results",ignore_errors=True)
     os.makedirs("allure-results",exist_ok=True)
 
 

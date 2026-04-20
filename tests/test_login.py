@@ -10,7 +10,7 @@ test_data=[("Sauce Labs Bike Light",),
 @allure.title("Verify Sauce Page login ,adding and removing products functionality")
 @allure.description("This opens Sauce page and checks login , adding and removing products functionality")
 @pytest.mark.parametrize("product_names",test_data)
-@allure.feature('E-coomerce Sauce demo')
+@allure.feature('E-commerce Sauce demo')
 @allure.story('Login and cart')
 @allure.tag('System Testing')
 def test_add_and_remove_products_from_cart(login_user,product_names,page):
