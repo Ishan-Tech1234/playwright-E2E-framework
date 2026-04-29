@@ -9,6 +9,8 @@ import logging
 import allure
 import shutil
 
+from config_loader.load_config import load_config
+
 
 
 def __init__(self,page):
@@ -25,11 +27,14 @@ def page():
         context.close()
         browser.close()
 
+ENV=os.getenv("Test_env","dev")
+config=load_config(ENV)
+
 @pytest.fixture(scope="function")
 def login_user(page):
     login_page=LoginPage(page)
-    username="standard_user"
-    password="secret_sauce"
+    username= config["username"]
+    password=config["password"]
     inventory_page=login_page.login(username,password)
     return inventory_page
 
@@ -68,5 +73,7 @@ def pytest_runtest_makereport(item,call):
                 print(f"\n[Playwright] Screenshot saved to {filename}")
             except Exception as e:
                 print(f"\n[Playwright] Failed to take screenshot: {e}")
+
+
 
 
