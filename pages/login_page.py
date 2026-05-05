@@ -7,6 +7,7 @@ class LoginPage(BasePage):
     PASSWORD_INPUT="#password"
     URL="https://www.saucedemo.com/"
     LOGIN_BUTTON="#login-button"
+    ERROR_MESSAGE="[data-test='error']"
     
     def __init__(self, page):
         super().__init__(page)
@@ -16,8 +17,14 @@ class LoginPage(BasePage):
         self.fill(self.USERNAME_INPUT,username,"username")
         self.fill(self.PASSWORD_INPUT,password,"password")
         self.click(self.LOGIN_BUTTON,"Clicking login button")
-        inventory_page=InventoryPage(self.page)
-        return inventory_page
+        if self.page.url=="https://www.saucedemo.com/inventory.html":
+         inventory_page=InventoryPage(self.page)
+         return inventory_page
+        return self
+    
+    def get_error_message(self):
+       return self.page.locator(self.ERROR_MESSAGE)
+        
        
         
 
