@@ -13,16 +13,17 @@ fixtures, parameterization, and detailed assertion introspection.
 - GitHub - GitHub is a web-based platform that hosts Git repositories and provides tools for version control, collaboration, and project management
 
 ## SetUp 
-Step 1 : Download the repository from GitHub
-Step 2 : Run the command  which installs all the required dependencies required to run the project
+- Step 1 : Download the repository from GitHub
+- Step 2 : Run the command  which installs all the required dependencies required to run the project
 ```bash
 pip install -r requirements.txt
 playwright install
 ```
-Step 3 : run pytest testname -s t run the test
+- Step 3 : run pytest testname -s t run the test
 
 ```
 ## FolderStructure
+
 PLAYWRIGHT_E2E_FRAMEWORK
 |----> tests
 |        |---> test_login.py
